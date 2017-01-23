@@ -9,7 +9,7 @@ const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!
 app.set('port', process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
-app.use(express.static('build'));
+app.use(express.static(__dirname + '/public'));
 app.locals.urls = [];
 
 app.get('/api/urls', (request, response) => {
@@ -61,7 +61,7 @@ app.post('/api/post', (request, response) => {
 // for testing to work
 if (!module.parent) {
   app.listen(app.get('port'), () => {
-    console.log(`listening on ${app.get('port')}`);
+    console.log(`URLs listening on ${app.get('port')}`);
   });
 }
 
