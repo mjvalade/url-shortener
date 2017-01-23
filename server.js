@@ -9,7 +9,7 @@ const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!
 app.set('port', process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
-app.use(express.static('public'));
+app.use(express.static('build'));
 app.locals.urls = [];
 
 app.get('/api/urls', (request, response) => {
