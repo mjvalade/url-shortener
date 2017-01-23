@@ -2,6 +2,14 @@
   "name": "url-shortener",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "apitest": "mocha",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "devDependencies": {
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
@@ -18,12 +26,8 @@
     "react-dom": "^15.4.1",
     "shortid": "^2.2.6"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "apitest": "mocha",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "engines": {
+    "node": "7.0.0"
   },
   "proxy": "http://localhost:3001/api"
 }
