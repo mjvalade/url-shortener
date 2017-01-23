@@ -5,8 +5,6 @@ const shortID = require('shortid');
 const axios = require('axios');
 var app = express();
 const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-var Nightmare = require('nightmare');
-var nightmare = new Nightmare({ show: false });
 
 app.set('port', process.env.PORT || 3001);
 app.use(bodyParser.json());
@@ -41,11 +39,6 @@ const getTitle = (url) => {
     console.log(error);
     app.locals.urls[app.locals.urls.length-1].title = "title not found";
   });
-  // nightmare
-  // .goto(url)
-  // .title()
-  // .then( r => console.log(r))
-  // .end();
 };
 
 app.post('/api/post', (request, response) => {
