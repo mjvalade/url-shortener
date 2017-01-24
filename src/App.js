@@ -48,12 +48,9 @@ class App extends Component {
   }
 
   filterUrls(searchValue) {
-    let urls = this.state.urlList.filter(url => {
-      if (url.longUrl.indexOf(searchValue.toLowerCase()) >= 0) {
-        return url;
-      }
+    return this.state.urlList.filter(url => {
+      return url.longUrl.indexOf(searchValue.toLowerCase()) >= 0;
     });
-    return urls;
   }
 
   sortBy(property) {
@@ -77,7 +74,6 @@ class App extends Component {
           <tr key={url.shortID}
           className="url-row"
           >
-            <td>{url.title}</td>
             <td><a href={url.longUrl}>{url.longUrl}</a></td>
             <td><a href={"http://localhost:3001/api/"+url.shortID}>{url.shortID}</a></td>
             <td>{moment(url.createdAt).format('MMM Do, h:mm a')}</td>
@@ -130,7 +126,6 @@ class App extends Component {
             <table className="url-table">
               <thead>
                 <tr>
-                  <th className="table-headers">Title</th>
                   <th className="table-headers">Original URL</th>
                   <th className="table-headers">Short URL</th>
                   <th className="table-headers"

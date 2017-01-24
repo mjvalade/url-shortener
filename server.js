@@ -17,29 +17,16 @@ app.get('/api/urls', (request, response) => {
 });
 
 app.get('/api/:shortid', (request, response) => {
-  let { shortid } = request.params;
+  const { shortid } = request.params;
 
-  let longUrl = app.locals.urls.map((url, i) => {
-    if(url.shortID === shortid) {
-      app.locals.urls[i].count++;
-      response.redirect(301, url.longUrl);
-    }
-  });
-
-  if(!longUrl) return response.status(404);
-
+  const url = app.locals.urls.filter(url => url.shortID === shortid)[0];
+  if (url) {
+    url.count++;
+    return response.redirect(301, url.longUrl);
+  }
+  return response.status(404);
 });
 
-const getTitle = (url) => {
-  axios.get(`http://textance.herokuapp.com/title/www.${url.slice(7)}`)
-  .then((response) => {
-    app.locals.urls[app.locals.urls.length-1].title = response.data;
-  })
-  .catch((error) => {
-    console.log(error);
-    app.locals.urls[app.locals.urls.length-1].title = "title not found";
-  });
-};
 
 app.post('/api/post', (request, response) => {
   let { url } = request.body;
@@ -52,7 +39,6 @@ app.post('/api/post', (request, response) => {
   obj.createdAt = Date.now();
   obj.longUrl = url;
   obj.count = 0;
-  obj.title = getTitle(url);
 
   app.locals.urls.push(obj);
   response.status(201).json(obj.shortID);
