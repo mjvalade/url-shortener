@@ -10,16 +10,16 @@ app.set('port', process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(express.static(__dirname + '/public'));
-app.locals.urls = [];
+app.locals.urls = {};
 
 app.get('/api/urls', (request, response) => {
-  response.send({ urls: app.locals.urls });
+  response.send({ urls: Object.values(app.locals.urls) });
 });
 
 app.get('/api/:shortid', (request, response) => {
   const { shortid } = request.params;
 
-  const url = app.locals.urls.filter(url => url.shortID === shortid)[0];
+  const url = app.locals.urls[shortid];
   if (url) {
     url.count++;
     return response.redirect(301, url.longUrl);
@@ -40,7 +40,7 @@ app.post('/api/post', (request, response) => {
   obj.longUrl = url;
   obj.count = 0;
 
-  app.locals.urls.push(obj);
+  app.locals.urls[obj.shortID] = obj;
   response.status(201).json(obj.shortID);
 });
 
