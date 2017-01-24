@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   getUrls() {
-    axios.get(`/urls`)
+    axios.get(`api/urls`)
     .then((response) => {
       this.setState({urlList: response.data.urls});
     })
@@ -34,7 +34,7 @@ class App extends Component {
       return;
     }
 
-    axios.post(`/post`, {
+    axios.post(`api/post`, {
       url: input
     })
     .then((response) => {
